@@ -1,35 +1,20 @@
 import { useEffect, useState } from "react";
 import ProductCard from "./ProductCard";
 
-export default function ProductLists() {
-    const [products, setProducts] = useState([]);
-
-    useEffect(() => {
-        const fetchProducts = async () => {
-            const response = await (
-                await fetch("https://dummyjson.com/products")
-            ).json();
-
-            setProducts(response.products);
-        };
-
-        fetchProducts();
-    }, []);
-
-    console.log(products);
-
-    return (
-        <div className="product-lists">
-            {products.map((product) => {
-                return (
-                    <ProductCard
-                        name={product.title}
-                        category={product.category}
-                        image={product.images[0]}
-                        price={product.price}
-                    />
-                );
-            })}
-        </div>
-    );
+export default function ProductLists({ CHICKEN }) {
+  return (
+    <div className="product-lists">
+      {CHICKEN.map((x) => {
+        return (
+          <ProductCard
+            key={x.id}
+            name={x.title}
+            category={x.category}
+            image={x.thumbnail}
+            price={x.price}
+          />
+        );
+      })}
+    </div>
+  );
 }

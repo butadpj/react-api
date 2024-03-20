@@ -3,47 +3,45 @@ import "./App.css";
 import ProductLists from "./components/ProductLists";
 
 function App() {
-    const [searchInput, setSearchInput] = useState("");
-    const [searchedProducts, setSearchedProducts] = useState([]);
+  const [searchInput, setSearchInput] = useState("");
+  const [searchedProducts, setSearchedProducts] = useState([]);
 
-    useEffect(() => {
-        const searchProducts = async () => {
-            const response = await (
-                await fetch(
-                    `https://dummyjson.com/products/search?q=${searchInput}`
-                )
-            ).json();
+  useEffect(() => {
+    const searchProducts = async () => {
+      const response = await (
+        await fetch(`https://dummyjson.com/products/search?q=${searchInput}`)
+      ).json();
 
-            setSearchedProducts(response.products);
-        };
+      setSearchedProducts(response.products);
+    };
 
-        searchProducts();
-    }, []);
+    searchProducts();
+  }, [searchInput]);
 
-    console.log("SAMSUNG PRODUCTS: ", searchedProducts);
+  console.log("SEARCHED PRODUCTS: ", searchedProducts);
 
-    return (
-        <main>
-            <h2>Products: </h2>
+  return (
+    <main>
+      <h2>Products: </h2>
 
-            <div className="product-search">
-                <label>Search: </label>
-                <input
-                    type="text"
-                    value={searchInput}
-                    onClick={(event) => {
-                      setSearchInput("CLICKED");
-                  }}
-                    onChange={(event) => {
-                        setSearchInput(event.target.value);
-                    }}
-                    placeholder="Something.."
-                />
-            </div>
+      <div className="product-search">
+        <label>Search: </label>
+        <input
+          type="text"
+          value={searchInput}
+          onChange={(event) => {
+            setSearchInput(event.target.value);
+          }}
+          //   onClick={(event) => {
+          //     setSearchInput("CLICKED");
+          //   }}
+          placeholder="Something.."
+        />
+      </div>
 
-            <ProductLists />
-        </main>
-    );
+      <ProductLists CHICKEN={searchedProducts} />
+    </main>
+  );
 }
 
 export default App;
